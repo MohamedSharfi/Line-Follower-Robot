@@ -1,0 +1,136 @@
+int Toggle;
+  int dealy;
+  dealy=500;
+  Toggle =0 ;
+  int T1;
+  int T2;
+  int X;
+ //int Pt;
+  int   Y=0; //inital value for Y
+  //Pt =  HAL_GetTick();
+ // int d2; //count dealy
+  //Pt=0;
+//d2 = 1000;
+  T2=0;
+  int press = 0 ;
+  int unbounce = 1;
+  int unbounce2 = 1;
+//int initialDealy = 1000; // Initial dealy value
+ // T2 = HAL_GetTick();
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while (1)
+    {
+    	  T1 = HAL_GetTick();
+    	  if (T1 - Toggle>= dealy){
+    		  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+    	  Toggle= T1;
+    	  }
+
+        /* USER CODE END WHILE */
+    	  X = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4); 		 // if pin high will return 1 if low will return 0
+    	      if (X == GPIO_PIN_RESET && unbounce2 ==1 ) { 	       		 // Button is pressed (active low)
+    	        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);	 // Toggle the output pin
+    	   					unbounce2 = 0;
+    	      }
+    	      if (X == GPIO_PIN_SET ) {
+    	    	  unbounce2 = 1;
+    	      }
+           if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6) == GPIO_PIN_SET  && unbounce ==1){
+        	  // Y = 1;
+        		 press = press + 1;
+        		 unbounce = 0;
+       	        		//  if(press < 4){
+
+
+       	        		 if(press >=5 ){
+       	        		  	 press = 0; // to notice the change in speed
+       	        		 }
+       	        	  }
+           if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6) == GPIO_PIN_RESET ){
+                   			 unbounce = 1;      // most  important line in the world
+                   		 }
+           if(press == 0){
+        	   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_SET);
+           }
+           else {
+        	   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_RESET);
+           }
+       	        	  if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6) == GPIO_PIN_RESET){
+       	        		  Y = 0;
+       	        	  }
+
+       	        	  // Y = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6);
+    	         // if (Y == 1 ) {
+
+    	        //   press = press +1;
+    	       //   }
+
+       	        	  if(press == 0 ){
+       	        		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+       	        	  }
+
+    	          if (press == 1 && (HAL_GetTick() - T2) >= 1000) {
+    	              HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
+    	              T2 = HAL_GetTick();
+    	          }
+    	          else if (press == 2 && (HAL_GetTick() - T2) >= 800) {
+    	              HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
+    	              T2 = HAL_GetTick();
+    	          }
+    	          else if (press == 3 && (HAL_GetTick() - T2) >= 600) {
+    	              HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
+    	              T2 = HAL_GetTick();
+    	          }
+    	          else if (press == 4 && (HAL_GetTick() - T2) >= 400) {
+    	              HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
+    	              T2 = HAL_GetTick();
+    	          }
+					  else if (press == 5 && (HAL_GetTick() - T2) >= 200) {
+						  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_7);
+						  T2 = HAL_GetTick();
+					  }
+
+
+    	         // if (press >= 6 ) {
+
+    	             	      //     press = 0;
+    	             	       //   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+    /* USER CODE BEGIN 3 */
+
+
+    ///////
+  }
+
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
